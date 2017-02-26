@@ -1,0 +1,54 @@
+﻿<template>
+    <template is="dom-bind" id="root">
+        <h1>Sortable List</h1>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Sort</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Persons}}" restamp>
+                    
+                        <tr class="success">
+                            <td>{{item.Rank$}}</td>
+                            <td>{{item.FirstName}}</td>
+                            <td>{{item.LastName}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-default " value="{{item.Rank$::click}}" onmousedown="++this.value" disabled$="{{}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default " value="{{}}" onmousedown="++this.value" disabled$="{{}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    
+                </template>
+                    
+            </tbody>
+        </table>
+    </template>
+
+   
+
+</template>
+<script>
+        var template = document.querySelector("#root");
+        template.itemDropped = function (event) {
+            if (!event.detail.dropElement) {
+                return;
+            }
+            var target = event.currentTarget;
+            var drag = event.detail.dragElement;
+            var drop = event.detail.dropElement;
+            if (target.position == "static") {
+                var origin = drag.nextElementSibling;
+                drop.appendChild(origin);
+                drag.parentNode.removeChild(drag);
+            } else {
+                drop.appendChild(drag);
+                drag.style.position = "";
+                target.setAttribute("disabled", "disabled");
+            }
+        };
+</script>
