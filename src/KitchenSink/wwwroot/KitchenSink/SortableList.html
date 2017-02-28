@@ -1,7 +1,7 @@
 ﻿<template>
     <template is="dom-bind" id="root">
         <h1>Sortable List</h1>
-        <table class="table table-striped table-hover ">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Rank</th>
@@ -18,8 +18,8 @@
                             <td>{{item.FirstName}}</td>
                             <td>{{item.LastName}}</td>
                             <td>
-                                <button class="btn btn-sm btn-default " value="{{item.Rank$::click}}" onmousedown="++this.value" disabled$="{{}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-                                <button class="btn btn-sm btn-default " value="{{}}" onmousedown="++this.value" disabled$="{{}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default" value="{{}}"  disabled$="{{}}"><i class="fa fa-thumbs-up jawher-btn" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default " value="{{}}"  disabled$="{{}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     
@@ -28,10 +28,37 @@
             </tbody>
         </table>
     </template>
-
-   
-
 </template>
+
+<template>
+    <template id="root" is="dom-bind">
+        <section class="invoicedemo panes">
+            <section class="invoicedemo invoice">
+                <div class="invoice-items table table-striped table-hover">
+                    <div class="invoice-items-head">
+                        <div class="invoice-item-cell">FirstName</div>
+                        <div class="invoice-item-cell">LastName</div>
+                    </div>
+                    <div class="invoice-items-body">
+                        <template is="dom-repeat" items="{{model.Persons}}">
+                            <div class="invoice-item success">
+
+                                <div class="invoice-item-cell">{{item.FirstName::input}}</div>
+                                <div class="invoice-item-cell">{{item.LastName}}</div>
+                                <div class="invoice-item-cell">
+                                    <button value="{{model.Cancel$::click}}" onmousedown="++this.value;" class="btn btn-sm btn-default jawher-btn"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    <button value="{{model.Cancel$::click}}" onmousedown="++this.value;" class="btn btn-sm btn-default jawher-btn"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                </div>
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </template>
+</template>
+
 <script>
         var template = document.querySelector("#root");
         template.itemDropped = function (event) {
