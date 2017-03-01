@@ -4,7 +4,11 @@
     {
       "FirstName": "",
       "LastName": "",
-      "Rank$":0
+      "Rank$": 0,
+      "isFirst": false,
+      "isLast": false
     }
-  ]
+  ],
+  "Up$": 0,
+  "Down$": 0
 }
