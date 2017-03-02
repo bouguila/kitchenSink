@@ -4,7 +4,6 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Rank</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th>Sort</th>
@@ -14,12 +13,12 @@
                 <template is="dom-repeat" items="{{model.Persons}}">
                     
                         <tr class="success">
-                            <td>{{item.Rank$}}</td>
+
                             <td>{{item.FirstName}}</td>
                             <td>{{item.LastName}}</td>
                             <td>
-                                <button class="btn btn-sm btn-default jawher-btn" value="{{model.Up$::click}}" onmousedown="this.value=1" tabindex="{{index}}"   disabled$="{{item.isFirst}}" item="{{item}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-                                <button class="btn btn-sm btn-default  jawher-btn"  disabled$="{{item.isLast}}" item="{{item}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default jawher-btn" on-mousedown="up"   disabled$="{{item.isFirst}}" item="{{item}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default  jawher-btn" on-mousedown="down" disabled$="{{item.isLast}}" item="{{item}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     
@@ -29,6 +28,36 @@
         </table>
     </template>
 
+
+    <script>
+
+
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template._isfa = function (ev) {
+                return true;
+            }
+            template.up = function (ev) {
+                var item = ev.currentTarget.item;
+                var index = template.model.Persons.indexOf(item);
+                template.set("model.Up$", index+1);
+            };
+
+            template.down = function (ev) {
+
+
+                var item = ev.currentTarget.item;
+                var index = template.model.Persons.indexOf(item);
+                template.set("model.Down$", index+1);
+                
+            };
+
+
+
+        })();
+    </script>   
 </template>
 
 
