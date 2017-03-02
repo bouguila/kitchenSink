@@ -71,44 +71,51 @@ namespace KitchenSink
 
         void Handle(Input.Up action)
         {
-      
-            
+            int idx = (int)action.Value-1;
 
-            Debug.WriteLine(action);
+            Debug.WriteLine(idx);
             if (this.Persons == null)
             {
                 return;
             }
 
 
-            var tmp = Persons[0];
+            var tmp = Persons[idx-1];
            
-
             Db.Transact(() =>
             {
-                Persons[0].Rank++;
-                Persons[1].Rank--;
-                Persons[0] = Persons[1];
-                Persons[1] = tmp;
+                Persons[idx-1].Rank++;
+                Persons[idx].Rank--;
+                Persons[idx-1] = Persons[idx];
+                Persons[idx] = tmp;
                 
             });
-
-            //var tmp = Persons[0];
-            //Persons[0] = Persons[1];
-            //Persons[1] = tmp;
-            //Persons[0].Rank++;
-            //Persons[1].Rank--;
 
 
         }
 
         void Handle(Input.Down action)
         {
-            Debug.WriteLine("hello");
-            //get the index of person
+            int idx = (int)action.Value-1;
+
+            Debug.WriteLine(idx);
+            if (this.Persons == null)
+            {
+                return;
+            }
 
 
-            //Transaction.Commit();
+            var tmp = Persons[idx+1];
+
+
+            Db.Transact(() =>
+            {
+                Persons[idx+1].Rank--;
+                Persons[idx].Rank++;
+                Persons[idx+1] = Persons[idx];
+                Persons[idx] = tmp;
+
+            });
         }
 
 
