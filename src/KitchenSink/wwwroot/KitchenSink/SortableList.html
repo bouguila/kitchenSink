@@ -60,6 +60,13 @@
                 console.log(from + "====>" + to);
  
             };
+            template.mvm = function (ev) {
+
+                var from = ev.detail.oldIndex + 1;
+                var to = ev.detail.newIndex + 1;
+                console.log(ev);
+
+            };
         })();
         
  </script>

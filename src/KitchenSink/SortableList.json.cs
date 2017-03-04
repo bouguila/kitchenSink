@@ -135,8 +135,6 @@ namespace KitchenSink
             {
                 Persons[from].Rank=Persons[to].Rank;
                 Persons[to].Rank=tmpRank;
-                //Persons[from] = Persons[to];
-                //Persons[to] = tmp;
 
             });
         }
