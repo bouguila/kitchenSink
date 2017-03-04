@@ -220,54 +220,79 @@
 }
 
 
-        #drag {
+ #drag {
             overflow: visible;
-            padding-left: 420px;
+          
             min-height: 60px;
         }
-        .drag,
+
+.drag {
+    cursor:move;
+}
         .drag-helper {
-            width: 200px;
+            width: 100%;
             line-height: 50px;
-            float: left;
-            margin: 0px 10px 10px 0px;
-            border: 1px dashed #333333;
+            float: bottom;
+            border: 1px solid #333333;
+            border-collapse:collapse;
             text-align: center;
             cursor: move;
         }
+
         #drop {
-            clear: both;
-            border: 1px solid #333333;
+           
             padding: 0px;
         }
-        #drop p {
+
+        #drop thead {
             border-bottom: 1px solid #333333;
             padding: 10px;
             margin: 0px;
         }
+
         #drop div.drop {
             min-height: 100px;
             padding: 10px;
         }
-        #drop .drag {
-            cursor: default;
+        #drop tbody.drop {
+            min-height: 100px;
+            padding: 10px;
         }
+
+        #drop .drag {
+            cursor: move;
+        }
+        #drop .drag:hover{
+            background-color:yellowgreen;
+        }
+
         .drag-helper {
             display: none;
         }
+
         .drag-helper.dragging {
             display: block;
         }
+
         .drag-hover {
             background-color: #eeffc5;
         }
+
         juicy-draggable.fixed .drag {
-            left: 10px;
-        }
-        juicy-draggable.fixed-drop .drag {
-            left: 220px;
+            top: 10px;
+            height:inherit;
+            width:inherit;
         }
 
+        juicy-draggable.fixed-drop .drag {
+
+        }
+        .jjj:hover{
+
+cursor:move;
+border:1px solid #000000;
+
+        }
 
 body {
     background: #ffffff;

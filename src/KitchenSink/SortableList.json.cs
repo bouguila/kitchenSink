@@ -74,6 +74,7 @@ namespace KitchenSink
             int idx = (int)action.Value-1;
 
             Debug.WriteLine(idx);
+
             if (this.Persons == null)
             {
                 return;
@@ -118,7 +119,28 @@ namespace KitchenSink
             });
         }
 
+        void Handle(Input.From action)
+        {
+            int from = (int)action.Value-1;
+            int to = (int)this.To-1;
+            Debug.WriteLine(from+" ===> "+to);
+            if (this.Persons == null)
+            {
+                return;
+            }
 
+
+            var tmpRank = Persons[from].Rank;
+            var tmp = Persons[from];
+            Db.Transact(() =>
+            {
+                Persons[from].Rank=Persons[to].Rank;
+                Persons[to].Rank=tmpRank;
+                //Persons[from] = Persons[to];
+                //Persons[to] = tmp;
+
+            });
+        }
 
     }
 }

@@ -231,6 +231,8 @@
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <None Include="wwwroot\KitchenSink\SortableList.html" />
+    <Content Include="wwwroot\KitchenSink\polymer-sortablejs.html" />
+    <Content Include="wwwroot\KitchenSink\Sortable.js" />
     <Content Include="wwwroot\KitchenSink\ValidationPage.html" />
     <Content Include="wwwroot\KitchenSink\ToggleButtonPage.html" />
     <Content Include="wwwroot\KitchenSink\CheckboxPage.html" />
