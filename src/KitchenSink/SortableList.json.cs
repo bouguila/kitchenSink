@@ -29,6 +29,14 @@ namespace KitchenSink
 
     partial class SortableList : Json
     {
+
+        public void RefreshData()
+        {
+          
+            Persons = Db.SQL<Person>("SELECT p FROM Person p ORDER BY p.Rank");
+            
+
+        }
         protected override void OnData()
         {
             base.OnData();
@@ -70,15 +78,13 @@ namespace KitchenSink
 
         void Handle(Input.Up action)
         {
-            int idx = (int)action.Value-1;
 
-            Debug.WriteLine(idx);
+            int idx = (int)this.index;
 
             if (this.Persons == null)
             {
                 return;
             }
-
 
             var tmp = Persons[idx-1];
            
@@ -90,20 +96,20 @@ namespace KitchenSink
                 Persons[idx] = tmp;
                 
             });
+            this.RefreshData();
 
 
         }
 
         void Handle(Input.Down action)
         {
-            int idx = (int)action.Value-1;
+            int idx = (int)this.index;
 
             Debug.WriteLine(idx);
             if (this.Persons == null)
             {
                 return;
             }
-
 
             var tmp = Persons[idx+1];
 
@@ -118,10 +124,10 @@ namespace KitchenSink
             });
         }
 
-        void Handle(Input.From action)
+        void Handle(Input.Drag action)
         {
-            int from = (int)action.Value-1;
-            int to = (int)this.To-1;
+            int from =(int)this.index; ;
+            int to = (int)this.to;
             Debug.WriteLine(from+" ===> "+to);
             if (this.Persons == null)
             {
