@@ -256,7 +256,7 @@ version: 0.0.3
             var that = this;
             var root = this.createShadowRoot();
             var template = scriptDocument.querySelector("#juicy-draggable-element");
-            var clone = document.importNode(template.content, true);
+            var clone = document.importNode(template.content, false);
             root.appendChild(clone);
             this.refreshAttributeValues();
             if (!this.elementId) {
