@@ -1,33 +1,37 @@
 ﻿<template>
 
-    <template is="dom-bind" id="root">
-        <h1>Sortable List</h1>
-                
-            <table class="table table-striped table-hover">
-                <sortable-js on-sort="moved">
-                    <thead>
-                        <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Sort</th>
+   
+
+        <template is="dom-bind" id="root">
+            <table id="drop" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Sort</th>
+                    </tr>
+                </thead>
+                <tbody id="drag" class="drop">
+                    <template is="dom-repeat" items="{{model.Persons}}">
+                        <tr is="juicy-draggable" dropselector="#drag" class="drag success" on-juicy-draggable-stop="itemDropped">
+                            <td>{{item.FirstName}}</td>
+                            <td>{{item.LastName}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-default jawher-btn" on-mousedown="up" disabled$="{{item.isFirst}}" item="{{item}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-default  jawher-btn" on-mousedown="down" disabled$="{{item.isLast}}" item="{{item}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody id="myList">
-                        <template is="dom-repeat" items="{{model.Persons}}">
-                            <tr class="drag success">
-                                <td> {{item.FirstName}}</td>
-                                <td>{{item.LastName}}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-default jawher-btn" on-mousedown="up" disabled$="{{item.isFirst}}" item="{{item}}" ><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-                                    <button class="btn btn-sm btn-default  jawher-btn" on-mousedown="down" disabled$="{{item.isLast}}" item="{{item}}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </sortable-js> 
+                    </template>
+                </tbody>
             </table>
+        </template>
+
+
+
+
+
         
-</template>
+
 
 
 
@@ -54,15 +58,36 @@
 
             };
 
-            template.moved = function (ev) {
-                
-                var from = ev.detail.oldIndex + 1;
-                var to = ev.detail.newIndex + 1;
+            function findRowIndex(node) {
+                var i = 1;
+                while (node = node.previousSibling)
+                    if (node.nodeType === 1) { ++i }
+                return i;
+            }
+            function insertAfter(referenceNode, newNode) {
+                referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+            }
+
+            template.itemDropped = function (event) {
+                if (!event.detail.dropElement) {
+                    return;
+                }
+
+                var drag = event.detail.dragElement;
+                var drop = event.detail.dropElement;
+                var x = event.target.element.lastXPosition;
+                var y = event.target.element.lastYPosition;
+                var sible = document.elementFromPoint(x, y).parentElement;
+                var from = findRowIndex(drag);
+                var to = findRowIndex(sible);
+                if (from > to)
+                    drop.insertBefore(drag, sible);
+                else
+                    insertAfter(sible, drag);
+
                 template.set("model.index$", from);
                 template.set("model.to$", to);
                 template.set("model.Drag$", ++template.model.Drag$);
-                console.log(from + "====>" + to);
- 
             };
        
         })();

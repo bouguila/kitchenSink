@@ -126,8 +126,9 @@ namespace KitchenSink
 
         void Handle(Input.Drag action)
         {
-            int from =(int)this.index; ;
-            int to = (int)this.to;
+            int from =((int)this.index-1) ;
+            int to = ((int)this.to-1);
+            
             Debug.WriteLine(from+" ===> "+to);
             if (this.Persons == null)
             {
@@ -141,6 +142,8 @@ namespace KitchenSink
             {
                 Persons[from].Rank=Persons[to].Rank;
                 Persons[to].Rank=tmpRank;
+                Persons[from] = Persons[to];
+                Persons[to] = tmp;
 
             });
         }

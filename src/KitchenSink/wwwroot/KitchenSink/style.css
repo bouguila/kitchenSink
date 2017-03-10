@@ -226,24 +226,32 @@
             min-height: 60px;
         }
 
+thead{
+    border: 1px solid rgb(221, 221, 221);
+}
+thead th{
+    text-align: center;
+}
 .drag {
     cursor:move;
 }
-        .drag-helper {
-            width: 100%;
-            line-height: 50px;
-            float: bottom;
-            border: 1px solid #333333;
-            border-collapse:collapse;
-            text-align: center;
-            cursor: move;
-        }
+.drag-helper {
+    width: 100%;
+    line-height: 50px;
+    float: bottom;
+    border: 1px solid #333333;
+    border-collapse:collapse;
+    text-align: center;
+    cursor: move;
+}
 
-        #drop {
+#drop {
            
-            padding: 0px;
+    padding: 0px;
+}
+.drag:hover {
+             outline:  1px solid rgb(100, 100, 100);
         }
-
         #drop thead {
             border-bottom: 1px solid #333333;
             padding: 10px;

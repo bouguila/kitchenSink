@@ -8,13 +8,10 @@ version: 0.0.3
     <content id="content"></content>  
 </template>
 
-
 <script>
     (function () {
         var script = document._currentScript || document.currentScript;
         var scriptDocument = script.ownerDocument;
-
-        //https://github.com/gtramontina/draggable.js/blob/master/draggable.js
         var draggable = (function definition() {
             function addEventListener(element, eventName, handler) {
                 if (element.addEventListener) {
@@ -44,6 +41,7 @@ version: 0.0.3
             var fairlyHighZIndex = '10';
             function draggable(options) {
                 var element = options.element;
+
                 var handle = options.handle || element;
                 var position = options.position;
                 var dropSelector = options.dropSelector;
@@ -61,7 +59,6 @@ version: 0.0.3
                     if (position == "static") {
                         copyElement(element, dragElement);
                     }
-
                     currentOptions = options;
                     started = startDragging(event, dragElement);
                 });
@@ -97,7 +94,7 @@ version: 0.0.3
                     return div;
                 }
                 if (!position) {
-                    position = "absolute";
+                    //position = "absolute";
                 }
                 element.style.position = position;
                 return element;
@@ -133,14 +130,11 @@ version: 0.0.3
                 currentElement.lastXPosition = event.clientX;
                 currentElement.lastYPosition = event.clientY;
                 var okToGoOn = triggerEvent('start', { x: initialPosition.left, y: initialPosition.top, mouseEvent: event });
-
                 if (!okToGoOn) {
                     currentElement.classList.remove(currentOptions.draggingClass);
                     return false;
                 };
-
                 addDocumentListeners();
-
                 return true;
             }
             function stopDragging(event) {
@@ -247,6 +241,7 @@ version: 0.0.3
             return draggable;
         })();
         var JuicyDraggablePrototype = Object.create(HTMLElement.prototype);
+
         //Throws a weird exception in IE;
         //JuicyDraggablePrototype.disabled = false;
         JuicyDraggablePrototype.element = null;
@@ -254,13 +249,18 @@ version: 0.0.3
             var element = null;
             var handle = null;
             var that = this;
+
             var root = this.createShadowRoot();
             var template = scriptDocument.querySelector("#juicy-draggable-element");
             var clone = document.importNode(template.content, true);
             root.appendChild(clone);
+            console.log(root);
+
             this.refreshAttributeValues();
+
             if (!this.elementId) {
-                element = this.children[0];
+                 element = this;
+
             } else {
                 element = this.querySelector("#" + this.elementId);
             }
@@ -334,7 +334,8 @@ version: 0.0.3
             }
         };
         window.JuicyDraggableElement = document.registerElement("juicy-draggable", {
-            prototype: JuicyDraggablePrototype
+            prototype: JuicyDraggablePrototype,
+            extends:"tr"
         });
     })();
 </script>
